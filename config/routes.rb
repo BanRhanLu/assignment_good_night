@@ -9,5 +9,8 @@ Rails.application.routes.draw do
       get 'follow/:follow_id', to: 'follow_ship#follow', on: :member
       get 'unfollow/:unfollow_id', to: 'follow_ship#unfollow', on: :member
     end
+    resource :sleep_record, only: [:index] do
+      get 'following_sleep_record', to: 'sleep_record#following_sleep_record', on: :member
+    end
   end
 end
