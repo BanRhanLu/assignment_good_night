@@ -9,7 +9,7 @@ class SleepRecord < ApplicationRecord
      sdate_time = sdate.beginning_of_day
      edate_time = edate.end_of_day
      where(
-       '(clock_in between ? and ?) OR (clock_out between ? and ?)',
+       '(sleep between ? and ?) OR (wake_up between ? and ?)',
        sdate_time,
        edate_time,
        sdate_time,
@@ -21,10 +21,10 @@ class SleepRecord < ApplicationRecord
   private
 
   def calculate_duration
-    self.duration = (clock_out - clock_in).to_i
+    self.duration = (wake_up - sleep).to_i
   end
 
   def check_time_start_and_end?
-    clock_in.present? && clock_out.present?
+    sleep.present? && wake_up.present?
   end
 end
