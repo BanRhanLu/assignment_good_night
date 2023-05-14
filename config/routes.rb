@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resource :follow_ship, only: [:index] do
       get 'show', to: 'follow_ship#show', on: :member
       get 'follow/:follow_id', to: 'follow_ship#follow', on: :member
+      get 'unfollow/:unfollow_id', to: 'follow_ship#unfollow', on: :member
     end
   end
 end

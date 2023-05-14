@@ -19,4 +19,17 @@ class FollowShipController < ApplicationController
   rescue StandardError => e
     render(json: { success: false, error: e.message })
   end
+
+  def unfollow
+    friend_ship_params = params.permit(:user_id, :unfollow_id).to_h.with_indifferent_access
+    user_id = friend_ship_params[:user_id]
+    following = friend_ship_params[:unfollow_id]
+    raise 'user and following are the same' if user_id == following
+
+    follow_ship = User.find(user_id).follow_ships.find_by(following_id: following)
+    follow_ship&.delete
+    render(json: { success: true, error: nil })
+  rescue StandardError => e
+    render(json: { success: false, error: e.message })
+  end
 end
